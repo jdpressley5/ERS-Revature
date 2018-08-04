@@ -1,17 +1,27 @@
-let urlE = "";
-let urlM = "";
+let urlE = "loginE.do";
+let urlM = "loginM.do";
 let xho = new XMLHttpRequest();
+
 let btnE = document.getElementById("EmpSignIn");
-btnE.addEventListener("click",ajax(urlE));
+btnE.addEventListener("click",ajaxA(urlE));
 let btnM = document.getElementById("EmpSignIn");
-btnM.addEventListener("click",ajax(urlM));
+btnM.addEventListener("click",ajaxA(urlM));
 
 /** function */
-function ajax(u : string) {
-    if(xho.readyState === 4 && xho.status === 200)
-        { window.location.href = xho.responseText; }
-    xho.open("get",u);
-    xho.send(getData);
+function ajaxA(u)
+{
+    if (document.forms['Sign-inForm'].username.value === null ||
+            document.forms['Sign-inForm'].password.value === null) {
+        alert("Both Fields must have data!");
+    }//end if
+    else {
+        if(xho.readyState === 4 && xho.status === 200) {
+            console.log(xho.responseText);
+            window.location.href = xho.responseText; 
+        }//end if
+        xho.open("get",u);
+        xho.send(getData);
+    }//end else
 }//end ajax()
 
 /**function */

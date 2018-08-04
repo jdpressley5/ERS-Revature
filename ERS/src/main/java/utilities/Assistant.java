@@ -2,6 +2,7 @@ package utilities;
 import org.apache.log4j.Logger;
 import dao_objects.EmployeeAccessObject;
 import dao_objects.ReimbursementAccessObject;
+import dao_objects.SignInAccessObject;
 import servlet.FrontEndServlet;
 import java.sql.Connection;
 
@@ -11,8 +12,7 @@ import java.sql.Connection;
  * --Revature Project 1 --
  * @author Joshua Pressley
  * @version 1.0 7/27/2018 */
-public interface Assistant
-{
+public interface Assistant {
     /** Logging object to record log4j messages.*/
     Logger log = Logger.getLogger(FrontEndServlet.class);
     /** The connection to the database. */
@@ -21,5 +21,6 @@ public interface Assistant
     EmployeeAccessObject EAO = EmployeeAccessObject.getInstance();
     /** Reference to the RAO */
     ReimbursementAccessObject RAO = ReimbursementAccessObject.getInstance();
-
+    /** Reference to Sign in object */
+    SignInAccessObject SAO = new SignInAccessObject();
 }//end interface Assistant

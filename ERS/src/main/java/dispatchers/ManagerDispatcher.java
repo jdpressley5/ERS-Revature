@@ -56,4 +56,7 @@ public class ManagerDispatcher implements Assistant
 		ArrayList<Employee> results = EAO.getAllEmployees();
 		//TODO finish
 	}//end getAllEmployees()
+	
+	public static boolean signIn(String username, String password)
+	{ return SAO.login(username, password, "MGR"); }
 }//end class ManagerDispatcher

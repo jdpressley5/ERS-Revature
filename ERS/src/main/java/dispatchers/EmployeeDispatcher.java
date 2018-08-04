@@ -35,5 +35,8 @@ public class EmployeeDispatcher implements Assistant
 	public static void viewEmployeeResolved() {
 		//TODO
 	}//end viewEmployeeResolved()
+	
+	public static boolean signIn(String username, String password)
+	{ return SAO.login(username, password, "EMP"); }
 
 }//end class EmployeeDispatcher
