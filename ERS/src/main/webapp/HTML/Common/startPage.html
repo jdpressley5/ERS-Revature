@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="ISO-8859-1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+        <title>ERS Login</title>
+        <link rel="stylesheet" href="../../project.css">
+    </head>
+    <body class="text-center">
+        <div>
+            <form class="form-signin" id="Sign-in Form">
+                <img class="mb-4" width="800" height="300"
+                    src="/Users/Josh/Documents/GitHub/ERS-Revature/ERS/src/main/webapp/logo.svg">
+                <h1 class="h3 md-3 font-weight-normal">Please Sign In</h1>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input id="username" type="text" class="form-control" name="username" placeholder="username">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+                </div>
+                <div class="btn-group col-sm-12 text-center" align="center">
+                    <button id="EmpSignIn" class="btn btn-primary hell" style="width:50%" type="submit">Employee Sign-In</button>
+                    <button id="MgrSignIn" class="btn btn-danger" style="width:50%" type="submit">Manager Sign-In</button>
+                </div>
+            </form>
+        </div>
+        <script type="text/javascript" src=../../js/startPage.js></script>
+    </body>
+</html>

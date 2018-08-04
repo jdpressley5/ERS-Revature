@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+    <link rel="stylesheet" href="../../project.css">
+    <title>View Requests</title>
+</head>
+    <body>
+        <div class="row page-header center">
+            <div class="col-sm-12" align="center" style="background: black">
+                <img class="mb-4" width="200" height="150" style="overflow: auto"
+                    src="/Users/Josh/Documents/GitHub/ERS-Revature/ERS/src/main/webapp/SmallLogo.svg">
+            </div>   
+        </div>
+        <section>
+            <button id="getPending" type="submit">Get Pending Requests</button>
+            <button id="getResolved" type="submit">Get Resolved Requests</button>
+            <div>
+                <table class="table table-bordered table-hover table-striped">
+                    <tbody id="requestsTable">
+                        <th>Request Number</th>
+                        <th>Employee ID</th>
+                        <th>Request Message </th>
+                        <th>Request Date</th>
+                        <th>Status</th>
+                        <th>Manager ID</th>
+                        <th>Response Date</th>
+                        <th>Response Message</th>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <script type="text/javascript" src=../../js/AllRequestsTable.js></script>
+    </body>
+</html>
