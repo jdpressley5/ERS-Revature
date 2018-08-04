@@ -1,12 +1,17 @@
 package dao_objects;
 import dao_interfaces.ReimbursementInterface;
 import model.Reimbursement;
-import utilities.Assistant;
+import servlet.FrontEndServlet;
+import utilities.Database;
+
 import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import org.apache.log4j.Logger;
 
 /** ReimbursementAccessObject
  * This is the access object for the reimbursements operations
@@ -14,8 +19,13 @@ import java.util.ArrayList;
  * --Revature Project 1 --
  * @author Joshua Pressley
  * @version 1.0 8/2/2018 */
-public class ReimbursementAccessObject implements Assistant, ReimbursementInterface
+public class ReimbursementAccessObject implements ReimbursementInterface
 {
+    /** Logging object to record log4j messages.*/
+    static Logger log = Logger.getLogger(FrontEndServlet.class);
+    /** The connection to the database. */
+    Connection conn = Database.getConnection();
+    
     //------------------------------------------------------------------------------
     // Singleton
     //------------------------------------------------------------------------------

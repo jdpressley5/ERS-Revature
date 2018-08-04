@@ -1,7 +1,13 @@
 package dispatchers;
 import model.Employee;
+import java.sql.Connection;
+import org.apache.log4j.Logger;
+import dao_objects.EmployeeAccessObject;
+import dao_objects.ReimbursementAccessObject;
+import dao_objects.SignInAccessObject;
+import servlet.FrontEndServlet;
+import utilities.Database;
 import model.Reimbursement;
-import utilities.Assistant;
 import java.util.ArrayList;
 
 /** ManagerDispatcher
@@ -10,8 +16,19 @@ import java.util.ArrayList;
  * --Revature Project 1 --
  * @author Joshua Pressley
  * @version 1.0 7/30/2018 */
-public class ManagerDispatcher implements Assistant
+public class ManagerDispatcher 
 {
+	/** Logging object to record log4j messages.*/
+    static Logger log = Logger.getLogger(FrontEndServlet.class);
+    /** The connection to the database. */
+    static Connection conn = Database.getConnection();
+    /** Reference to the EAO */
+    static EmployeeAccessObject EAO = EmployeeAccessObject.getInstance();
+    /** Reference to the RAO */
+    static ReimbursementAccessObject RAO = ReimbursementAccessObject.getInstance();
+    /** Reference to Sign in object */
+    static SignInAccessObject SAO = new SignInAccessObject();
+    
 	//------------------------------------------------------------------------------
 	// Singleton
 	//------------------------------------------------------------------------------

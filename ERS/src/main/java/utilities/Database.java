@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+import org.apache.log4j.Logger;
+import servlet.FrontEndServlet;
 
 /** Database
  * Performs the connection to the database. This is a singleton instance
@@ -11,8 +13,11 @@ import java.util.Properties;
  * --Revature Project 1 --
  * @author Joshua Pressley
  * @version 1.0 7/27/2018 */
-public class Database implements Assistant 
+public class Database
 {
+	/** Logging object to record log4j messages.*/
+    static Logger log = Logger.getLogger(FrontEndServlet.class);
+    
     /** static reference to the connection. */
     private static Connection conn = null;
 
@@ -24,7 +29,7 @@ public class Database implements Assistant
             try{
                 Properties props = new Properties();
                 props.load(new FileInputStream(
-                        "C:\\git_repos\\ERS-Revature\\ERS\\src\\main\\resources\\oracleDB.properties"));
+                        "/Users/Josh/Downloads/ERS-Revature/ERS/src/main/resources/oracleDB.properties"));
 
                 Class.forName("oracle.jdbc.driver.OracleDriver");
                 String endpoint = props.getProperty("db.url");

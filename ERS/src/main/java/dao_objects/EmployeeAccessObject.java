@@ -1,11 +1,15 @@
 package dao_objects;
 import dao_interfaces.EmployeeInterface;
 import model.Employee;
-import utilities.Assistant;
+import servlet.FrontEndServlet;
+import utilities.Database;
+
+import org.apache.log4j.Logger;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 /** EmployeeAccessObject
@@ -14,8 +18,13 @@ import java.util.ArrayList;
  * --Revature Project 1 --
  * @author Joshua Pressley
  * @version 1.0 8/2/2018 */
-public class EmployeeAccessObject implements Assistant, EmployeeInterface
+public class EmployeeAccessObject implements EmployeeInterface
 {
+    /** The connection to the database. */
+    Connection conn = Database.getConnection();
+    /** Logging object to record log4j messages.*/
+    Logger log = Logger.getLogger(FrontEndServlet.class);
+
     //------------------------------------------------------------------------------
     // Singleton
     //------------------------------------------------------------------------------

@@ -1,6 +1,13 @@
 package dispatchers;
+import java.sql.Connection;
+import org.apache.log4j.Logger;
+import dao_objects.EmployeeAccessObject;
+import dao_objects.ReimbursementAccessObject;
+import dao_objects.SignInAccessObject;
 import model.Employee;
-import utilities.Assistant;
+import servlet.FrontEndServlet;
+import utilities.Database;
+import utilities.GsonClass;
 
 /** CommonDispatcher
  * Dispatcher for common actions for both manger and employee
@@ -8,8 +15,19 @@ import utilities.Assistant;
  * --Revature Project 1 --
  * @author Joshua Pressley
  * @version 1.0 7/30/2018 */
-public class CommonDispatcher implements Assistant
+public class CommonDispatcher
 {
+	/** Logging object to record log4j messages.*/
+    static Logger log = Logger.getLogger(FrontEndServlet.class);
+    /** The connection to the database. */
+    static Connection conn = Database.getConnection();
+    /** Reference to the EAO */
+    static EmployeeAccessObject EAO = EmployeeAccessObject.getInstance();
+    /** Reference to the RAO */
+    static ReimbursementAccessObject RAO = ReimbursementAccessObject.getInstance();
+    /** Reference to Sign in object */
+	static SignInAccessObject SAO = new SignInAccessObject();
+	
 	//------------------------------------------------------------------------------
 	// Singleton
 	//------------------------------------------------------------------------------
@@ -27,10 +45,12 @@ public class CommonDispatcher implements Assistant
 	//------------------------------------------------------------------------------
 	// Methods
 	//------------------------------------------------------------------------------
-	public static void viewEmployeeProfile(int ID) {
-		//TODO
-		EAO.getIndividual(ID);
-	}//end viewEmployeeProfile()
+	
+	/** Gets the employee information based on ID number.
+	 * @param ID ID number of employee
+	 * @return JSON string of employee information. */
+	public static String viewEmployeeProfile(int ID) 
+	{ return GsonClass.gsonIndividual(EAO.getIndividual(ID)); }
 	
 	public static void updateEmployeeInformation() {
 		Employee emp = new Employee();
