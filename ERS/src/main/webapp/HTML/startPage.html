@@ -12,20 +12,19 @@
     <body class="text-center">
         <div>
             <form class="form-signin" id="Sign-inForm">
-                <img class="mb-4" width="800" height="300"
-                    src="../logo.svg">
+                <img class="mb-4" width="800" height="300" src="../logo.svg">
                 <h1 class="h3 md-3 font-weight-normal">Please Sign In</h1>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                    <input id="username" type="text" class="form-control" name="username" placeholder="username">
+                    <input id="username" type="text" name="username" class="form-control" name="username" placeholder="username">
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                    <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+                    <input id="password" type="password" name="password" class="form-control" name="password" placeholder="Password">
                 </div>
                 <div class="btn-group col-sm-12 text-center" align="center">
-                    <button id="EmpSignIn" class="btn btn-primary btn-block hell" style="width:50%" >Employee Sign-In</button>
-                    <button id="MgrSignIn" class="btn btn-danger btn-block" style="width:50%">Manager Sign-In</button>
+                    <button id="EmpSignIn"  onclick="ajaxA('loginE.do')" type="button" class="btn btn-primary btn-block hell" style="width:50%" >Employee Sign-In</button>
+                    <button id="MgrSignIn" onclick="ajaxA('loginM.do')"type="button" class="btn btn-danger btn-block" style="width:50%">Manager Sign-In</button>
                 </div>
             </form>
         </div>

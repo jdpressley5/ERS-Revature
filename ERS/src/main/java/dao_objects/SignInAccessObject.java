@@ -2,12 +2,13 @@ package dao_objects;
 import dao_interfaces.LoginInterface;
 import servlet.FrontEndServlet;
 import utilities.Database;
-
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Types;
-
 import org.apache.log4j.Logger;
 
 /** SignInAccessObject
@@ -32,7 +33,15 @@ public class SignInAccessObject implements LoginInterface
         String sql1 = "{? = call SIGN_IN_EMP(?,?) }";
         String sql2 = "{? = call SIGN_IN_MGR(?,?)}";
         String sql = type.equals("EMP") ? sql1 : sql2;
-        System.out.println(sql);
+        String pass = password;
+ 
+		try {
+			MessageDigest m = MessageDigest.getInstance("MD5");
+			m.update(password.getBytes(),0,password.length());
+			pass = new BigInteger(1,m.digest()).toString(16).toUpperCase();
+		}//end try 
+		catch (NoSuchAlgorithmException e1) {log.error("MD5 hash missing"); }
+		
         try {
             if (conn != null) {
                 CallableStatement cs = conn.prepareCall(sql);

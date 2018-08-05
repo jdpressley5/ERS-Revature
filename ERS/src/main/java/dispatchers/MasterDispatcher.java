@@ -1,17 +1,19 @@
 package dispatchers;
+import java.util.List;
 import java.io.IOException;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.sql.Connection;
-
+import java.util.Enumeration;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.Logger;
-
 import dao_objects.EmployeeAccessObject;
 import dao_objects.ReimbursementAccessObject;
 import dao_objects.SignInAccessObject;
 import servlet.FrontEndServlet;
 import utilities.Database;
+
 /** MasterDispatcher
  * Dispatcher that distributes to the appropriate dispatchers.
  *
@@ -32,12 +34,14 @@ public class MasterDispatcher
     SignInAccessObject SAO = new SignInAccessObject();
 
 	public static String dispatch(HttpServletRequest request, HttpServletResponse response) 
-	{
+	{		
+		Enumeration<String> parameterNames = request.getParameterNames();
+		while (parameterNames.hasMoreElements()) { System.out.println(parameterNames.nextElement()); }
+		System.out.println("printed");
+		
 		String[] guts = request.getRequestURI().split("/");
-		System.out.println(guts[3]);
 		String s = guts[3];
-		System.out.println("String to filter is " + s);
-		System.out.println(s.equals("loginM.do"));
+		
 		switch (s) 
 		{
 			case "loginE.do": // employee home
@@ -46,10 +50,11 @@ public class MasterDispatcher
 					return "EHome.html";
 				break;
 			case "loginM.do": // manager home
+				System.out.println("Username " + request.getParameter("username"));
+				System.out.println("Password " + request.getParameter("password"));
 				res = ManagerDispatcher.signIn(request.getParameter("username"), request.getParameter("password"));
-				System.out.println("result from signin-m : " + res);
 				if (res)
-					return "http://localhost:8080/ERS/HTML/Manager/MHome.html";
+					return "MHome.html";
 				break;
 			case "3":
 				break; // create reimbursement
@@ -67,6 +72,6 @@ public class MasterDispatcher
 				break; // update user info
 			default: // page not found
 		}// end switch
-		return "INVALID PATH";
+		return "404.html";
 	}//end dispatch()
 }//end class MasterDispatcher
