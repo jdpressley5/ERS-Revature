@@ -23,14 +23,21 @@ function mSign()
         password: document.getElementById("password").value
     };
     fetch(
-        url, {
+        url,
+        {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(data) }
-    ).then(res => res.json())
-    .catch(error => console.error("Error : ", error))
-    .then(console.log("Success ", response))
-}
+            body: JSON.stringify(data)
+        }
+    ).then(function(response) {
+        if (response.ok) {
+            let adr = JSON.parse(response.text);
+            this.window.location.assign(adr);
+        }
+        throw new Error('Response from server was not good.');
+    }
+);
+}//end mSign()
 
 /** function */
 function eSign()
@@ -44,10 +51,9 @@ function eSign()
         url,
         {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(data)
         }
-    ).then(res => res.json())
-    .catch(error => console.error("Error : ", error))
-    .then(console.log("Success ", response))
-}
+    ).done(function(data) { 
+    }).fail(function(data) {alert(data.responseText); });
+}//end eSign()

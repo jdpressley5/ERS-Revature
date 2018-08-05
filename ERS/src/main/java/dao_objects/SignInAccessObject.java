@@ -7,6 +7,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import org.apache.log4j.Logger;
@@ -20,7 +22,7 @@ import org.apache.log4j.Logger;
 public class SignInAccessObject implements LoginInterface
 {
     /** Logging object to record log4j messages.*/
-    Logger log = Logger.getLogger(FrontEndServlet.class);
+    Logger log = Logger.getLogger(SignInAccessObject.class);
     /** The connection to the database. */
     Connection conn = Database.getConnection();
 
@@ -30,27 +32,28 @@ public class SignInAccessObject implements LoginInterface
      * @param type the user type */
     @Override
     public boolean login(String username, String password, String type) {
-        String sql1 = "{? = call SIGN_IN_EMP(?,?) }";
-        String sql2 = "{? = call SIGN_IN_MGR(?,?)}";
-        String sql = type.equals("EMP") ? sql1 : sql2;
-        String pass = password;
- 
-		try {
+    	String pass = password;
+    	try {
 			MessageDigest m = MessageDigest.getInstance("MD5");
 			m.update(password.getBytes(),0,password.length());
-			pass = new BigInteger(1,m.digest()).toString(16).toUpperCase();
+			pass = new BigInteger(1,m.digest()).toString(16);
+			
 		}//end try 
 		catch (NoSuchAlgorithmException e1) {log.error("MD5 hash missing"); }
-		
+    	
+        String sql1 = "SELECT COUNT(username) FROM Employee WHERE username=" + username + " AND password="+ pass;
+        String sql2 = "SELECT password FROM Manager WHERE" + "username=" + username;
+        String sql = type.equals("EMP") ? sql1 : sql2;
+        
         try {
             if (conn != null) {
-                CallableStatement cs = conn.prepareCall(sql);
-                cs.registerOutParameter(1, Types.INTEGER);
-                cs.setString(2,username);
-                cs.setString(3,password);
-                cs.executeUpdate();
-                int result = cs.getInt(1);
-                return result == 1;
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
+                rs.next();
+                String result = rs.getString(1);
+                System.out.println("result: " + result);
+                System.out.println("pass: " + pass);
+                return result.equals(pass);
             }//end if
         }//end try
         catch (SQLException e)

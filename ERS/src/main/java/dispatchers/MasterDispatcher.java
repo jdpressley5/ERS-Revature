@@ -1,5 +1,6 @@
 package dispatchers;
 import java.util.List;
+import java.util.Map;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -33,28 +34,21 @@ public class MasterDispatcher
     /** Reference to Sign in object */
     SignInAccessObject SAO = new SignInAccessObject();
 
-	public static String dispatch(HttpServletRequest request, HttpServletResponse response) 
+	public static String dispatch(HttpServletRequest request, HttpServletResponse response, Map<String, String> params) 
 	{		
-		Enumeration<String> parameterNames = request.getParameterNames();
-		while (parameterNames.hasMoreElements()) { System.out.println(parameterNames.nextElement()); }
-		System.out.println("printed");
-		
 		String[] guts = request.getRequestURI().split("/");
-		String s = guts[3];
-		
-		switch (s) 
+		switch (guts[3]) 
 		{
 			case "loginE.do": // employee home
-				boolean res = EmployeeDispatcher.signIn(request.getParameter("username"), request.getParameter("password"));
+				boolean res = EmployeeDispatcher.signIn(params.get("username"), params.get("password"));
 				if (res)
-					return "EHome.html";
+					return "http://localhost:8080/ERS/HTML/EHome.html";
 				break;
 			case "loginM.do": // manager home
-				System.out.println("Username " + request.getParameter("username"));
-				System.out.println("Password " + request.getParameter("password"));
-				res = ManagerDispatcher.signIn(request.getParameter("username"), request.getParameter("password"));
+				res = ManagerDispatcher.signIn(params.get("username"), params.get("password"));
+				System.out.println(res);
 				if (res)
-					return "MHome.html";
+					return "http://localhost:8080/ERS/HTML/MHome.html";
 				break;
 			case "3":
 				break; // create reimbursement
@@ -72,6 +66,6 @@ public class MasterDispatcher
 				break; // update user info
 			default: // page not found
 		}// end switch
-		return "404.html";
+		return "http://localhost:8080/ERS/HTML/empty.html";
 	}//end dispatch()
 }//end class MasterDispatcher

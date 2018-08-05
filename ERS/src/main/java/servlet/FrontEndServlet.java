@@ -3,8 +3,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import dispatchers.MasterDispatcher;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.Map;
 
 /** FrontEndServlet
@@ -16,28 +23,36 @@ import java.util.Map;
 public class FrontEndServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
+	
+	private static Map<String,String> params;
        
     public FrontEndServlet() { super(); }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException 
-	{ 
-		Map<String, String[]> m = request.getParameterMap();
-		System.out.println("size: " + m.size());
-		System.out.println("Map: " + m.toString());
+	{ 		
+		BufferedReader br = request.getReader();
+		Type type = new TypeToken<Map<String,String>>(){}.getType();
+		params = new Gson().fromJson(br.readLine(), type);	
+//		System.out.println("size- " + params.size());
+//		System.out.println("u- " + params.get("username"));
+//		System.out.println("p- " + params.get("password"));
 		
 		response.setContentType("text/html");
-		response.getWriter().append(MasterDispatcher.dispatch(request, response)); 
+		response.getWriter().append(MasterDispatcher.dispatch(request, response, params)); 
 	}//end doGet()
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException
 	{ 
-		Map<String, String[]> m = request.getParameterMap();
-		System.out.println("size: " + m.size());
-		System.out.println("Map: " + m.toString());
+		BufferedReader br = request.getReader();
+		Type type = new TypeToken<Map<String,String>>(){}.getType();
+		params = new Gson().fromJson(br.readLine(), type);	
+//		System.out.println("size- " + params.size());
+//		System.out.println("u- " + params.get("username"));
+//		System.out.println("p- " + params.get("password"));
 		
 		response.setContentType("text/html");
-		response.getWriter().append(MasterDispatcher.dispatch(request, response)); 
+		response.getWriter().append(MasterDispatcher.dispatch(request, response, params)); 
 	}//end doPost()
 }//end classFrontEndServlet
