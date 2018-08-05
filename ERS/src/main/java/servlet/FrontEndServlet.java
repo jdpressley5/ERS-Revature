@@ -34,10 +34,7 @@ public class FrontEndServlet extends HttpServlet
 		BufferedReader br = request.getReader();
 		Type type = new TypeToken<Map<String,String>>(){}.getType();
 		params = new Gson().fromJson(br.readLine(), type);	
-//		System.out.println("size- " + params.size());
-//		System.out.println("u- " + params.get("username"));
-//		System.out.println("p- " + params.get("password"));
-		
+
 		response.setContentType("text/html");
 		response.getWriter().append(MasterDispatcher.dispatch(request, response, params)); 
 	}//end doGet()
@@ -48,9 +45,6 @@ public class FrontEndServlet extends HttpServlet
 		BufferedReader br = request.getReader();
 		Type type = new TypeToken<Map<String,String>>(){}.getType();
 		params = new Gson().fromJson(br.readLine(), type);	
-//		System.out.println("size- " + params.size());
-//		System.out.println("u- " + params.get("username"));
-//		System.out.println("p- " + params.get("password"));
 		
 		response.setContentType("text/html");
 		response.getWriter().append(MasterDispatcher.dispatch(request, response, params)); 

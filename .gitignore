@@ -1,5 +1,4 @@
 /.metadata/
-
 \.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/
-
 \.recommenders/caches/
+ERS/target/classes/servlet/*.class
