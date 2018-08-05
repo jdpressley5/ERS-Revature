@@ -9,6 +9,7 @@ import servlet.FrontEndServlet;
 import utilities.Database;
 import model.Reimbursement;
 import java.util.ArrayList;
+import java.util.Map;
 
 /** ManagerDispatcher
  * Dispatcher for manager only actions
@@ -76,4 +77,8 @@ public class ManagerDispatcher
 	
 	public static boolean signIn(String username, String password)
 	{ return SAO.login(username, password, "MGR"); }
+
+	public static boolean createEmp(Map<String,String> params)
+	{	
+		return false; }
 }//end class ManagerDispatcher

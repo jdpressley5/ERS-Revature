@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import dao_objects.EmployeeAccessObject;
 import dao_objects.ReimbursementAccessObject;
 import dao_objects.SignInAccessObject;
+import model.Employee;
 import servlet.FrontEndServlet;
 import utilities.Database;
 
@@ -46,20 +47,22 @@ public class MasterDispatcher
 				break;
 			case "loginM.do": // manager home
 				res = ManagerDispatcher.signIn(params.get("username"), params.get("password"));
-				System.out.println(res);
 				if (res)
 					return "http://localhost:8080/ERS/HTML/MHome.html";
 				break;
-			case "3":
-				break; // create reimbursement
-			case "2":
-				break; // view reimbursement
-			case "5":
-				break; // view reimbursements
-			case "4":
-				break; // view employees
-			case "6":
-				break; // logout
+			case "create.do":// create reimbursement
+				res = ManagerDispatcher.createEmp(params);
+				if (res)
+					return "http://localhost:8080/ERS/HTML/.html";
+				break; 
+			case "pending.do":// view reimbursement pending
+				break; 
+			case "resolved.do":// view reimbursement resolved
+				break; 
+			case "profiles.do":// view employees
+				break; 
+			case "logout.do": // logout
+				break; 
 			case "7":
 				break; // view an employee
 			case "8":
