@@ -7,7 +7,7 @@ CREATE TABLE Employee (
     ID number(10)  NOT NULL,
     FirstName varchar2(100)  NULL,
     LastName varchar2(100)  NULL,
-    Username varchar2(100)  NULL,
+    Username varchar2(100)  NULL unique ,
     Password varchar2(100)  NULL,
     Address varchar2(200),
     Email varchar2(200)  NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE Manager (
     ID number(10)  NOT NULL,
     Firstname varchar2(100)  NULL,
     LastName varchar2(100)  NULL,
-    Username varchar2(100)  NULL,
+    Username varchar2(100)  NULL unique,
     Password varchar2(100)  NULL,
     Address varchar2(200),
     Email varchar2(100)  NOT NULL,
@@ -104,11 +104,10 @@ CREATE SEQUENCE genReimbursmentNum
       NOCYCLE;
 
 -- PROCEDURES AND FUNCTIONS
-CREATE OR REPLACE FUNCTION GET_PASSWORD_HASH(USERNAME VARCHAR2, PASSWORD VARCHAR2)
-RETURN VARCHAR2 IS EXTRA VARCHAR2(10) := 'Pepper';
+CREATE OR REPLACE FUNCTION GET_PASSWORD_HASH(PASSWORD VARCHAR2)
+RETURN VARCHAR2 IS EXTRA VARCHAR2(10) := 'jdp';
 BEGIN
-  RETURN TO_CHAR(DBMS_OBFUSCATION_TOOLKIT.MD5(
-  INPUT => UTL_I18N.STRING_TO_RAW(DATA => USERNAME || PASSWORD || EXTRA)));
+  RETURN TO_CHAR(DBMS_OBFUSCATION_TOOLKIT.MD5(INPUT => UTL_I18N.STRING_TO_RAW(DATA => PASSWORD)));
 END;
 
 ------------------------------------
@@ -122,7 +121,7 @@ BEGIN
   END IF;
 
   /* SAVE HASH INSTEAD OF PASSWORD */
-  SELECT GET_PASSWORD_HASH(:NEW.USERNAME,:NEW.PASSWORD) INTO :NEW.PASSWORD FROM DUAL;
+  SELECT GET_PASSWORD_HASH(:NEW.PASSWORD) INTO :NEW.PASSWORD FROM DUAL;
 END;
 
 ------------------------------------
@@ -136,7 +135,7 @@ BEGIN
   END IF;
 
   /* SAVE HASH INSTEAD OF PASSWORD */
-  SELECT GET_PASSWORD_HASH(:NEW.USERNAME,:NEW.PASSWORD) INTO :NEW.PASSWORD FROM DUAL;
+  SELECT GET_PASSWORD_HASH(:NEW.PASSWORD) INTO :NEW.PASSWORD FROM DUAL;
 END;
 
 ------------------------------------
@@ -209,12 +208,42 @@ END;
 
 --   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+CREATE OR REPLACE FUNCTION SIGN_IN_EMP (uname varchar2, upass varchar2)
+RETURN NUMBER IS result NUMBER(1);
+BEGIN
+    SELECT COUNT(username)
+    INTO result
+    FROM EMPLOYEE
+    WHERE username = uname AND password = upass;
+END;
+
+--   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+CREATE OR REPLACE FUNCTION SIGN_IN_MGR (uname varchar2, upass varchar2)
+RETURN NUMBER IS result NUMBER(1);
+BEGIN
+  SELECT COUNT(username)
+   INTO result
+   FROM MANAGER
+   WHERE username = uname AND password = upass;
+   RETURN (result);
+END;
+
+  --   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 CALL INSERT_MANAGER('ADMIN','ADMIN','ADMIN','ADMIN','Address place...', 'admin@eamil.com');
+
 CALL INSERT_MANAGER('Josh','Pressley','JDP','1234','Address place...', 'jdp@eamil.com');
 
 CALL INSERT_EMPLOYEE('Eryn','Dixon','END','1234','Address place...', 'eryn@eamil.com');
+
 CALL INSERT_EMPLOYEE('Emory','Friedman','ERF','1234','Address place...', 'emory@eamil.com');
+
 CALL INSERT_EMPLOYEE('Michelle','Corn','MLC','1234','Address place...', 'mlc@eamil.com');
+
 CALL INSERT_EMPLOYEE('Christian','Bruce','CBLee','1234','Address place...', 'cblee@eamil.com');
+
 CALL INSERT_EMPLOYEE('Jessica','Morris','JM','1234','Address place...', 'jessica@eamil.com');
+
 -- End of file.
+
