@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import dispatchers.MasterDispatcher;
 import java.io.IOException;
+import java.util.Map;
 
 /** FrontEndServlet
  *  Master Servlet for the application
@@ -21,6 +22,10 @@ public class FrontEndServlet extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException 
 	{ 
+		Map<String, String[]> m = request.getParameterMap();
+		System.out.println("size: " + m.size());
+		System.out.println("Map: " + m.toString());
+		
 		response.setContentType("text/html");
 		response.getWriter().append(MasterDispatcher.dispatch(request, response)); 
 	}//end doGet()
@@ -28,6 +33,10 @@ public class FrontEndServlet extends HttpServlet
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException
 	{ 
+		Map<String, String[]> m = request.getParameterMap();
+		System.out.println("size: " + m.size());
+		System.out.println("Map: " + m.toString());
+		
 		response.setContentType("text/html");
 		response.getWriter().append(MasterDispatcher.dispatch(request, response)); 
 	}//end doPost()
