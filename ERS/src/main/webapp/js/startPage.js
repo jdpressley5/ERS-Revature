@@ -31,7 +31,7 @@ function mSign()
         }
     ).then(function(response) {
         if (response.ok) {
-            this.window.location.assign("http://localhost:8080/ERS/HTML/MHome.html");
+            window.location.assign("http://localhost:8080/ERS/HTML/MHome.html");
         }
         throw new Error('Response from server was not good.');
     }
@@ -53,6 +53,11 @@ function eSign()
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(data)
         }
-    ).done(function(data) { 
-    }).fail(function(data) {alert(data.responseText); });
+    ).then(function(response) {
+        if (response.ok) {
+            window.location.assign("http://localhost:8080/ERS/HTML/EHome.html");
+        }
+        throw new Error('Response from server was not good.');
+    }
+);
 }//end eSign()

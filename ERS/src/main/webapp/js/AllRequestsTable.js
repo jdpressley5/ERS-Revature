@@ -1,0 +1,3 @@
+function pending(){}
+
+function resolved(){}

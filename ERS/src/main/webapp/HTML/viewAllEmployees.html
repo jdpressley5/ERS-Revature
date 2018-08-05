@@ -6,18 +6,17 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
-    <link rel="stylesheet" href="../../project.css">
+    <link rel="stylesheet" href="../project.css">
     <title>All Employees</title>
 </head>
     <body>
         <div class="row page-header center">
             <div class="col-sm-12" align="center" style="background: black">
-                <img class="mb-4" width="200" height="150" style="overflow: auto"
-                    src="/Users/Josh/Documents/GitHub/ERS-Revature/ERS/src/main/webapp/SmallLogo.svg">
+                <img class="mb-4" width="200" height="150" style="overflow: auto" src="../SmallLogo.svg">
             </div>   
         </div>
         <section>
-            <button id="getEmployeesBtn" type="submit">Get Employees</button>
+            <button id="getEmployeesBtn" type="submit" onclick="getE()">Get Employees</button>
             <div>
                 <table class="table table-bordered table-hover table-striped">
                     <tbody id="empTable">
@@ -34,5 +33,5 @@
             </div>
         </section>
     </body>
-<script type="text/javascript" src=../../js/EmployeesTable.js></script>
+    <script type="text/javascript" src=../js/EmployeesTable.js></script>
 </html>

@@ -6,14 +6,13 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
-        <link rel="stylesheet" href="../../project.css">
+        <link rel="stylesheet" href="../project.css">
         <title>Register Employee</title>
     </head>
     <body>
         <div class="row page-header center">
             <div class="col-sm-12" align="center" style="background: black">
-                <img class="mb-4" width="200" height="150" style="overflow: auto"
-                    src="/Users/Josh/Documents/GitHub/ERS-Revature/ERS/src/main/webapp/SmallLogo.svg">
+                <img class="mb-4" width="200" height="150" style="overflow: auto" src="../SmallLogo.svg">
             </div>   
         </div>
 
@@ -35,8 +34,8 @@
             <label for="Email">Email Address</label>
             <input type="text" id="Email">
             <br>
-            <button  id="createEmp" type="submit" class="btn btn-danger btn-block">Create Employee </button>
+            <button  id="createEmp" type="submit" onclick="register()" class="btn btn-danger btn-block">Create Employee </button>
         </div>
-        <script type="text/javascript" src=../../js/RegisterEmployee.js></script>
+        <script type="text/javascript" src=../js/RegisterEmployee.js></script>
     </body>
 </html>
