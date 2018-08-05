@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
 import org.apache.log4j.Logger;
 
@@ -36,19 +37,20 @@ public class SignInAccessObject implements LoginInterface
     	try {
 			MessageDigest m = MessageDigest.getInstance("MD5");
 			m.update(password.getBytes(),0,password.length());
-			pass = new BigInteger(1,m.digest()).toString(16);
+			pass = new BigInteger(1,m.digest()).toString(16).toUpperCase();
 			
 		}//end try 
 		catch (NoSuchAlgorithmException e1) {log.error("MD5 hash missing"); }
     	
         String sql1 = "SELECT COUNT(username) FROM Employee WHERE username=" + username + " AND password="+ pass;
-        String sql2 = "SELECT password FROM Manager WHERE" + "username=" + username;
+        String sql2 = "SELECT password FROM Manager WHERE username = \'" + username + "\'";
         String sql = type.equals("EMP") ? sql1 : sql2;
+        System.out.println(sql);
         
         try {
             if (conn != null) {
-                PreparedStatement ps = conn.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery();
+            	Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql);
                 rs.next();
                 String result = rs.getString(1);
                 System.out.println("result: " + result);
@@ -57,7 +59,8 @@ public class SignInAccessObject implements LoginInterface
             }//end if
         }//end try
         catch (SQLException e)
-        { log.error("SQL Exception occurred trying to sign in user. UserID: " + username); }
+        { log.error("SQL Exception occurred trying to sign in user. UserID: " + username);
+        	e.printStackTrace(); }
         return false;
     }//end login()
 }//end class SignInAccessObject

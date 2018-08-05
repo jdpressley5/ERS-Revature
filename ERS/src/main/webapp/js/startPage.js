@@ -31,8 +31,7 @@ function mSign()
         }
     ).then(function(response) {
         if (response.ok) {
-            let adr = JSON.parse(response.text);
-            this.window.location.assign(adr);
+            this.window.location.assign("http://localhost:8080/ERS/HTML/MHome.html");
         }
         throw new Error('Response from server was not good.');
     }
