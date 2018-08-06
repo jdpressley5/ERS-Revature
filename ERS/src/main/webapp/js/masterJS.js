@@ -114,6 +114,13 @@ function toUpdate() {
     window.location.assign(home);
 }//end toUpdate()
 
+
+/** Change to update information page */
+function toCreate() {
+    let home = "http://localhost:8080/ERS/HTML/createRequest.html";
+    window.location.assign(home);
+}//end toCreate()
+
 /** Gets information for a single employee */
 function getEmployee()
 {
@@ -191,24 +198,24 @@ function createE() {
 }//end createEmp()
 
 /** Approve a request */
-function approve(RID) {
+function aprv() {
     let data = { 
         message: document.getElementById("username").value,
-        rid: RID
+        rid: document.getElementById("rid").value
     };
     let url = 'aprv.do';
-    let home = window.location;
+    let home = window.location.href;
     sendPostData(url,home,data);
 }//end Approve()
 
 /**Deny a request */
-function deny(RID) {
+function dny() {
     let data = { 
         message: document.getElementById("username").value,
-        rid: RID
+        rid: document.getElementById("rid").value
     };
     let url = 'deny.do';
-    let home = window.location;
+    let home = window.location.href;
     sendPostData(url,home,data);
 }//end deny()
 

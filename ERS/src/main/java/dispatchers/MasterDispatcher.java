@@ -59,8 +59,7 @@ public class MasterDispatcher
 				return "Successfully Logged out of ERS";
 				
 			case "subReq.do": //submit request
-				//TODO
-				break; 
+				return EmployeeDispatcher.createReimbursementRequest(params);
 				
 			case "update.do": //update employee
 				//TODO

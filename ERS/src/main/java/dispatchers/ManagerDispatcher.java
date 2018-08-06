@@ -44,17 +44,12 @@ public class ManagerDispatcher
 	 * @param params parameters from client */
 	public static void respond(Map<String,String> params) { 
 		Reimbursement re = new Reimbursement();
+		log.info("i got somewhere");
 		re.setR_id(Integer.parseInt(params.get("rid")));
 		String message = params.get("message");
 		boolean apr = Boolean.parseBoolean(params.get("apr"));
 		RAO.approveDenyRequest(apr, message, re); 
 	}//end respond()
-
-	/** Denies a request
-	 * @param message message to reply with
-	 * @param re Reimbursement object */
-	public static void denyResponse(String message, Reimbursement re, boolean apr)
-	{ RAO.approveDenyRequest(apr, message, re); }
 	
 	/** gets all pending requests
 	 * @return string of pending requests */

@@ -16,8 +16,8 @@
             </div>   
         </div>
         <section>
-            <button id="getPending" type="submit" onclick="pending()">Get Pending Requests</button>
-            <button id="getResolved" type="submit" onclick="resolved()">Get Resolved Requests</button>
+            <button id="getPending" class="btn btn-primary btn-block" type="submit" onclick="pending()">Get Pending Requests</button>
+            <button id="getResolved" class="btn btn-info btn-block" type="submit" onclick="resolved()">Get Resolved Requests</button>
             <div>
                 <table class="table table-bordered table-hover table-striped">
                     <thead>
@@ -35,6 +35,10 @@
                 </table>
                 <p id="contents"></p>
             </div>
+            <input value="Remibursement ID" id="rid" type="text">
+            <input value="message" id="message" type="text">
+            <button id="aprv" type="submit"class="btn btn-info btn-warning" onclick="aprv()">Approve</button>
+            <button id="deny" type="submit" class="btn btn-info btn-danger" onclick="dny()">Deny</button>
         </section>
         <script type="text/javascript" src=../js/masterJS.js></script>
     </body>

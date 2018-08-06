@@ -40,10 +40,13 @@ public class EmployeeDispatcher
 
 	/** create a reimbursement
  	* @param params parameters from client */
-	public static void createReimbursementRequest(Map<String,String> params){
+	public static String createReimbursementRequest(Map<String,String> params){
 		Reimbursement re = new Reimbursement();
-		//TOD get data into reimbursement
+		re.setAmount(Integer.parseInt(params.get("amount")));
+		re.setMessage(params.get("message"));
+		re.setEmployeeID(Integer.parseInt(params.get("eid")));
 		RAO.createReimbursement(re);
+		return "successful create";
 	}//end createReimbursementRequest()
 	
 	/** Gets pending reimbursements for employee
