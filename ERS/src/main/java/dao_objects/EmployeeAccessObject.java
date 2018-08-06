@@ -80,7 +80,7 @@ public class EmployeeAccessObject implements EmployeeInterface
                 else {
                     ArrayList<Employee> empList = new ArrayList<>();
                     do {
-                        empList.add(new Employee(
+                    	Employee emp = new Employee(
                                 rs.getInt(1), //id
                                 rs.getString(2),//first
                                 rs.getString(3),//last
@@ -88,9 +88,11 @@ public class EmployeeAccessObject implements EmployeeInterface
                                 rs.getString(4),//username
                                 rs.getString(6),//address
                                 rs.getString(7),//email
-                                rs.getString(8))//status
-                        );
+                                rs.getString(8));//status
+                        System.out.println(emp.toString());
+                    	empList.add(emp);
                     } while (rs.next());
+                    return empList;
                 }//end else
             }//end if
         } catch (SQLException e)

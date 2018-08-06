@@ -63,8 +63,20 @@ function registerE() {
 /** MHome.html
  * go to view of all Employees */
 function getEmployees() {
-    let home = "http://localhost:8080/ERS/HTML/viewAllEmployees.html";
-    window.location.assign(home);
+    fetch(
+        'profiles.do',
+        {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'}
+        }
+    ).then(function(response) {
+        if (response.ok) { 
+            let contents = response.text;
+            // let contents = JSON.parse(response.text);
+            document.getElementById("contnets").innerHTML = jSON.stringify(contents);
+        }
+        else { window.location.assign(ERRORPAGE); }//error occurred
+    });
 }//end getEmployees()
 
 /** createRequest.html
@@ -105,8 +117,21 @@ function toUpdate() {
 /** Gets information for a single employee */
 function getEmployee()
 {
-    let url = "viewE.do";
-}
+    fetch(
+            'viewE.do',
+            {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'}
+            }
+        ).then(function(response) {
+            if (response.ok) { 
+            	window.location.assign("http://localhost:8080/ERS/HTML/viewEmployee.html");
+                let contents = JSON.parse(response.text);
+                document.getElementById("contents").text = contents;
+            }
+            else { window.location.assign(ERRORPAGE); }//error occurred
+        });
+}//end getEmployee
 
 function pending()
 {

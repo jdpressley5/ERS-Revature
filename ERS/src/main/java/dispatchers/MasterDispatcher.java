@@ -67,7 +67,7 @@ public class MasterDispatcher
 				break; 
 				
 			case "viewE.do": //view employee
-				return CommonDispatcher.viewEmployeeProfile(Integer.parseInt(params.get("eid")));
+				return CommonDispatcher.viewEmployeeProfile(10000);//TODO remove value
 				
 			case "aprv.do": //approve request
 				params.put("apr", "true");
