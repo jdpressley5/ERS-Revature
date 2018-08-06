@@ -50,7 +50,7 @@ public class MasterDispatcher
 				if (res)
 					return "http://localhost:8080/ERS/HTML/MHome.html";
 				break;
-			case "create.do":// create reimbursement
+			case "create.do":// create employee
 				res = ManagerDispatcher.createEmp(params);
 				if (res)
 					return "http://localhost:8080/ERS/HTML/.html";
@@ -63,12 +63,12 @@ public class MasterDispatcher
 				break; 
 			case "logout.do": // logout
 				break; 
-			case "7":
-				break; // view an employee
-			case "8":
-				break; // update user info
-			default: // page not found
+			case "subReq.do": //submit request
+				break; 
+			case "update.do": //update employee
+				break; 
+			default: 
 		}// end switch
-		return "http://localhost:8080/ERS/HTML/empty.html";
+		return "http://localhost:8080/ERS/HTML/404.html";
 	}//end dispatch()
 }//end class MasterDispatcher
