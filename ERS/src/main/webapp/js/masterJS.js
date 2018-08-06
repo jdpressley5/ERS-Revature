@@ -214,7 +214,7 @@ function aprv() {
         rid: document.getElementById("rid").value
     };
     let url = 'aprv.do';
-    let home = SUCCESSPAGE_E;
+    let home = SUCCESSPAGE_M;
     sendPostData(url,home,data);
 }//end Approve()
 
@@ -225,7 +225,7 @@ function dny() {
         rid: document.getElementById("rid").value
     };
     let url = 'deny.do';
-    let home = SUCCESSPAGE_E;
+    let home = SUCCESSPAGE_M;
     sendPostData(url,home,data);
 }//end deny()
 
