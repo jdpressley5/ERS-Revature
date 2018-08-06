@@ -72,8 +72,7 @@ function viewAll() {
     ).then(function(response) {
         if (response.ok) { 
             let contents = response.text();
-            // let contents = JSON.parse(response.text);
-            
+            // let contents = JSON.parse(response.text)
             document.getElementById("contnets").innerHTML = contents;
         }
         else { window.location.assign(ERRORPAGE); }//error occurred
@@ -173,8 +172,8 @@ function resolved()
         }
     ).then(function(response) {
         if (response.ok) { 
-            let contents = JSON.parse(response.text);
-            document.getElementById("contents").text = contents;
+            let contents = response.text();
+            document.getElementById("requestsTable").innerHTML = contents;
         }
         else { window.location.assign(ERRORPAGE); }//error occurred
     });
@@ -186,6 +185,11 @@ function returnToLogin() {
     let home = "http://localhost:8080/ERS/HTML/startPage.html";
     window.location.assign(home);
 }//end returnToLogin()
+
+function requestsEmp() {
+    let home = "http://localhost:8080/ERS/HTML/RequestsEmp.html";
+    window.location.assign(home); 
+}
 
 /** registerEmployee.html
  * Creates an employee */
@@ -204,23 +208,23 @@ function createE() {
 
 /** Approve a request */
 function aprv() {
-    let data = { 
-        message: document.getElementById("username").value,
+    let data = {
+        message: document.getElementById("message").value,
         rid: document.getElementById("rid").value
     };
     let url = 'aprv.do';
-    let home = window.location.href;
+    let home = SUCCESSPAGE_E;
     sendPostData(url,home,data);
 }//end Approve()
 
 /**Deny a request */
 function dny() {
     let data = { 
-        message: document.getElementById("username").value,
+        message: document.getElementById("message").value,
         rid: document.getElementById("rid").value
     };
     let url = 'deny.do';
-    let home = window.location.href;
+    let home = SUCCESSPAGE_E;
     sendPostData(url,home,data);
 }//end deny()
 

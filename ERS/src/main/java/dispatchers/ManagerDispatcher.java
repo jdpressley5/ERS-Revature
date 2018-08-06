@@ -44,7 +44,6 @@ public class ManagerDispatcher
 	 * @param params parameters from client */
 	public static void respond(Map<String,String> params) { 
 		Reimbursement re = new Reimbursement();
-		log.info("i got somewhere");
 		re.setR_id(Integer.parseInt(params.get("rid")));
 		String message = params.get("message");
 		boolean apr = Boolean.parseBoolean(params.get("apr"));

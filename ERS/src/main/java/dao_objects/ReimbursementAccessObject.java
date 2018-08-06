@@ -54,7 +54,7 @@ public class ReimbursementAccessObject implements ReimbursementInterface
                 cs.executeUpdate();
             }//end if
         }//end try
-        catch (SQLException sql) { log.error("SQLException occurred in U-createUser()"); }
+        catch (SQLException sql) { log.error("SQLException occurred in createReimbursement()");  sql.printStackTrace();}
     }//end createReimbursement()
 
     /** Look up a specific reimbursement
@@ -90,7 +90,7 @@ public class ReimbursementAccessObject implements ReimbursementInterface
     public ArrayList<Reimbursement> getResolvedReimbursements() {
         try {
             if (conn != null) {
-                String sql = "SELECT * FROM REIMBURSEMENTS WHERE REIMBURSEMENTS.STATUS  = 'Resolved'";
+                String sql = "SELECT * FROM REIMBURSEMENTS WHERE REIMBURSEMENTS.STATUS  != 'Pending'";
                 Statement cs = conn.prepareCall(sql);
                 ResultSet rs = cs.executeQuery(sql);
                 return generateArrayList(rs);
@@ -124,16 +124,17 @@ public class ReimbursementAccessObject implements ReimbursementInterface
     public void approveDenyRequest(boolean approve, String reply, Reimbursement re) {
         try {
             if (conn != null){
-                String sql = "{call REPLY_REIMBURSEMENT(?,?,?)}";
+                String sql = "{call REPLY_REIMBURSEMENT(?,?,?,?)}";
                 String decision= approve ? "Approved" : "Declined";
                 CallableStatement cs = conn.prepareCall(sql);
                 cs.setString(1,reply);
                 cs.setString(2,decision);
                 cs.setInt(3, re.getR_id());
+                cs.setInt(4, 0);
                 cs.executeUpdate();
             }//end if
         }//end try
-        catch (SQLException sql) { log.error("SQLException occurred in U-createUser()"); }
+        catch (SQLException sql) { log.error("SQLException occurred in U-createUser()");  sql.printStackTrace();}
     }//end approveDenRequest()
 
     /** Gets pending for a specific user
@@ -161,7 +162,7 @@ public class ReimbursementAccessObject implements ReimbursementInterface
         try {
             if (conn != null) {
                 String sql = "SELECT * FROM REIMBURSEMENTS" +
-                        " WHERE REIMBURSEMENTS.STATUS  = 'Resolved' AND REIMBURSEMENTS.EMPLOYEE = " + EID;
+                        " WHERE REIMBURSEMENTS.STATUS  != 'Pending' AND REIMBURSEMENTS.EMPLOYEE = " + EID;
                 Statement cs = conn.prepareCall(sql);
                 ResultSet rs = cs.executeQuery(sql);
                 return generateArrayList(rs);
