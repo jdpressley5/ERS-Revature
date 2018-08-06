@@ -52,7 +52,7 @@ public class SignInAccessObject implements LoginInterface
             }//end if
         }//end try
         catch (SQLException e)
-        { log.error("SQL Exception occurred trying to sign in user. UserID: " + username); e.printStackTrace();}
+        { log.error("SQL Exception occurred trying to sign in user. UserID: " + username); }
         return false;
     }//end login()
 }//end class SignInAccessObject

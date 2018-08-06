@@ -115,12 +115,12 @@ public class EmployeeAccessObject implements EmployeeInterface
                 cs.setString(5,emp.getPassword());
                 cs.setString(6,emp.getAddress());
                 cs.setString(7,emp.getEmail());
-                cs.setString(8,emp.getStatus());
+                cs.setString(8,"Active");
                 cs.executeUpdate();
                 return true;
             }//end if
         }//end try
-        catch (SQLException sql) { log.error("SQLException occurred in updating employee"); }
+        catch (SQLException sql) { log.error("SQLException occurred in updating employee"+ sql.getMessage()); }
         return false;
     }//end updateEmployee()
 
@@ -142,7 +142,7 @@ public class EmployeeAccessObject implements EmployeeInterface
                 return true;
             }//end if
         }//end try
-        catch (SQLException sql) { log.error("SQLException occurred creating Employee"); sql.printStackTrace(); }
+        catch (SQLException sql) { log.error("SQLException occurred creating Employee" + sql.getMessage()); }
         return false;
     }//end createEmployee()
 }//end class EmployeeAccessObject

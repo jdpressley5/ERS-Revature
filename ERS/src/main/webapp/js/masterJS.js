@@ -105,6 +105,7 @@ function updateE() {
         lname: document.getElementById("LastName").value,
         fname: document.getElementById("FirstName").value,
         email: document.getElementById("Email").value,
+        eid: document.getElementById("eid").value,
         address: document.getElementById("Address").value
     };
     let url = "update.do";

@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import dispatchers.MasterDispatcher;
+import utilities.Database;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -22,12 +24,24 @@ import java.util.Map;
 public class FrontEndServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	
+
 	private static Map<String,String> params;
 	
 	public static HttpSession session;//TODO fix me last
        
     public FrontEndServlet() { super(); }
+    
+	@Override
+	public void destroy() {
+		Database.closeConn();
+		super.destroy();
+	}//end destroy
+
+	@Override
+	public void init() throws ServletException {
+		Database.getConnection();
+		super.init();
+	}//end init()
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException 

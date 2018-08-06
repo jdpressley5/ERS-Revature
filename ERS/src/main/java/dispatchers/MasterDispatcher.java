@@ -54,16 +54,13 @@ public class MasterDispatcher
 				return ManagerDispatcher.getAllEmployees();
 				
 			case "logout.do": // logout
-				//TODO terminate session
-				//Database.closeConn(); //dont do this
 				return "Successfully Logged out of ERS";
 				
 			case "subReq.do": //submit request
 				return EmployeeDispatcher.createReimbursementRequest(params);
 				
 			case "update.do": //update employee
-				//TODO
-				break; 
+				return CommonDispatcher.updateEmployeeInformation(params);
 				
 			case "viewE.do": //view employee
 				return CommonDispatcher.viewEmployeeProfile(10000);//TODO remove value

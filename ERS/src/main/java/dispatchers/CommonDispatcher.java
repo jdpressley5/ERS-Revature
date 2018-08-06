@@ -1,4 +1,7 @@
 package dispatchers;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 import org.apache.log4j.Logger;
 import dao_objects.EmployeeAccessObject;
@@ -41,14 +44,28 @@ public class CommonDispatcher
 	public static String viewEmployeeProfile(int ID) 
 	{ return GsonClass.gsonIndividual(EAO.getIndividual(ID)); }
 	
-	public static void updateEmployeeInformation(Map<String,String> params) {
+	/** updates an employees information
+	 * @param params parameters to pull from
+	 * @return success mesage*/
+	public static String updateEmployeeInformation(Map<String,String> params) {
+		String pass = params.get("password");
+    	try {
+			MessageDigest m = MessageDigest.getInstance("MD5");
+			m.update(pass.getBytes(),0,pass.length());
+			pass = new BigInteger(1,m.digest()).toString(16).toUpperCase();
+			
+		}//end try 
+		catch (NoSuchAlgorithmException e1) {log.error("MD5 hash missing"); }
+		
 		Employee emp = new Employee();
 		emp.setFirstName(params.get("fname"));
 		emp.setLastName(params.get("lname"));
 		emp.setAddress(params.get("address"));
 		emp.setEmail(params.get("email"));
-		emp.setPassword(params.get("password"));
+		emp.setPassword(pass);
+		emp.setIdNumber(Integer.parseInt(params.get("eid")));
 		emp.setUsername(params.get("username"));
 		EAO.updateEmployee(emp);
+		return "successful update";
 	}//end updateEmployeeInformation()
 }//end class CommonDispatcher
