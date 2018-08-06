@@ -62,22 +62,27 @@ function registerE() {
 
 /** MHome.html
  * go to view of all Employees */
-function getEmployees() {
+function viewAll() {
     fetch(
         'profiles.do',
         {
-            method: 'GET',
+            method: 'get',
             headers: {'Content-Type': 'application/json'}
         }
     ).then(function(response) {
         if (response.ok) { 
-            let contents = response.text;
+            let contents = response.text();
             // let contents = JSON.parse(response.text);
-            document.getElementById("contnets").innerHTML = jSON.stringify(contents);
+            
+            document.getElementById("contnets").innerHTML = contents;
         }
         else { window.location.assign(ERRORPAGE); }//error occurred
     });
 }//end getEmployees()
+
+/** Goes to view employees page */
+function toViewAll()
+{ window.location.assign("http://localhost:8080/ERS/HTML/viewAllEmployees.html"); }
 
 /** createRequest.html
  * Submits a request for reimbursement */

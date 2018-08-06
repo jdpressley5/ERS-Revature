@@ -16,18 +16,23 @@
             </div>   
         </div>
         <section>
-            <button id="getEmployeesBtn" type="submit" onclick="getEmployees()">Get Employees</button>
+            <div class="col-sm-3">
+                <button id="getEmployeesBtn" class="btn btn-primary btn-block" type="button" onclick="viewAll()">Get Employees</button>
+            </div>
             <div>
                 <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                            <th>Employee Number</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Username</th>
+                            <th>Password</th>
+                            <th>Email address</th>
+                            <th>Address</th>
+                            <th>Status</th>
+                    </thead>
                     <tbody id="empTable">
-                        <th>Employee Number</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
-                        <th>Password</th>
-                        <th>Email address</th>
-                        <th>Address</th>
-                        <th>Status</th>
+                        
                     </tbody>
                 </table>
                 <p id="contnets"></p>
