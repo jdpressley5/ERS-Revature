@@ -12,8 +12,6 @@ public interface ReimbursementInterface
 {
 	/** Create a Reimbursement*/
 	void createReimbursement(Reimbursement re);
-	/** Upload an image into Database */
-	void uploadImage();
 	/** Look up a specific reimbursement */
 	Reimbursement getAReimbursement(int reimbNumber);
 	/** Look up all resolved reimbursements */

@@ -23,7 +23,7 @@ public class EmployeeAccessObject implements EmployeeInterface
     /** The connection to the database. */
     Connection conn = Database.getConnection();
     /** Logging object to record log4j messages.*/
-    Logger log = Logger.getLogger(FrontEndServlet.class);
+    Logger log = Logger.getLogger(EmployeeAccessObject.class);
 
     //------------------------------------------------------------------------------
     // Singleton

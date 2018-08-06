@@ -16,7 +16,7 @@ import servlet.FrontEndServlet;
 public class Database
 {
 	/** Logging object to record log4j messages.*/
-    static Logger log = Logger.getLogger(FrontEndServlet.class);
+    static Logger log = Logger.getLogger(Database.class);
     
     /** static reference to the connection. */
     private static Connection conn = null;

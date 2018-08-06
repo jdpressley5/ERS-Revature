@@ -7,6 +7,7 @@ import dao_objects.ReimbursementAccessObject;
 import dao_objects.SignInAccessObject;
 import servlet.FrontEndServlet;
 import utilities.Database;
+import utilities.GsonClass;
 import model.Reimbursement;
 import java.util.ArrayList;
 import java.util.Map;
@@ -20,7 +21,7 @@ import java.util.Map;
 public class ManagerDispatcher 
 {
 	/** Logging object to record log4j messages.*/
-    static Logger log = Logger.getLogger(FrontEndServlet.class);
+    static Logger log = Logger.getLogger(ManagerDispatcher.class);
     /** The connection to the database. */
     static Connection conn = Database.getConnection();
     /** Reference to the EAO */
@@ -60,24 +61,45 @@ public class ManagerDispatcher
 	public static void denyResponse(String message, Reimbursement re)
 	{ RAO.approveDenyRequest(false, message, re); }
 	
-	public static void getAllPending() {
-		ArrayList<Reimbursement> results = RAO.getPendingReimbursements();
-		//TODO finish
+	/**
+	 * 
+	 * @return
+	 */
+	public static String getAllPending() {
+		return GsonClass.gsonReimbursements(RAO.getPendingReimbursements());
 	}//end getAllPending()
 	
-	public static void getAllResolved(){
-		ArrayList<Reimbursement> results = RAO.getResolvedReimbursements();
-		//TODO finish
+	/**
+	 * 
+	 * @return
+	 */
+	public static String getAllResolved(){
+		return GsonClass.gsonReimbursements(RAO.getResolvedReimbursements());
 	}//end getAllResolved()
 	
-	public static void getAllEmployees(){
-		ArrayList<Employee> results = EAO.getAllEmployees();
+	/**
+	 * 
+	 * @return
+	 */
+	public static String getAllEmployees(){
+		return GsonClass.gsonEmployees(EAO.getAllEmployees());
 		//TODO finish
 	}//end getAllEmployees()
 	
+	/**
+	 * 
+	 * @param username
+	 * @param password
+	 * @return
+	 */
 	public static boolean signIn(String username, String password)
 	{ return SAO.login(username, password, "MGR"); }
 
+	/**
+	 * 
+	 * @param params
+	 * @return
+	 */
 	public static boolean createEmp(Map<String,String> params)
 	{	
 		return false; }

@@ -22,7 +22,7 @@ import org.apache.log4j.Logger;
 public class ReimbursementAccessObject implements ReimbursementInterface
 {
     /** Logging object to record log4j messages.*/
-    static Logger log = Logger.getLogger(FrontEndServlet.class);
+    static Logger log = Logger.getLogger(ReimbursementAccessObject.class);
     /** The connection to the database. */
     Connection conn = Database.getConnection();
     
@@ -175,10 +175,6 @@ public class ReimbursementAccessObject implements ReimbursementInterface
         { log.error("SQL Exception getting FILTERED Resolved Reimbursements). REASON: " + e.getMessage()); }
         return null;
     }//end getFilterResolvedReimbursements()
-
-    /** Upload an image into Database */
-    @Override
-    public void uploadImage() { log.error("Upload Image is an unsupported operation"); } //TODO last
 
     //------------------------------------------------------------------------------
     // Helper Methods

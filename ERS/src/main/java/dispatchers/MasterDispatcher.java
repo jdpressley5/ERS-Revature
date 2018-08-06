@@ -1,19 +1,12 @@
 package dispatchers;
-import java.util.List;
 import java.util.Map;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.sql.Connection;
-import java.util.Enumeration;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import dao_objects.EmployeeAccessObject;
 import dao_objects.ReimbursementAccessObject;
 import dao_objects.SignInAccessObject;
-import model.Employee;
-import servlet.FrontEndServlet;
 import utilities.Database;
 
 /** MasterDispatcher
@@ -25,7 +18,7 @@ import utilities.Database;
 public class MasterDispatcher
 {	
 	/** Logging object to record log4j messages.*/
-    Logger log = Logger.getLogger(FrontEndServlet.class);
+    Logger log = Logger.getLogger(MasterDispatcher.class);
     /** The connection to the database. */
     Connection conn = Database.getConnection();
     /** Reference to the EAO */
@@ -35,6 +28,13 @@ public class MasterDispatcher
     /** Reference to Sign in object */
     SignInAccessObject SAO = new SignInAccessObject();
 
+    /**
+     * 
+     * @param request
+     * @param response
+     * @param params
+     * @return
+     */
 	public static String dispatch(HttpServletRequest request, HttpServletResponse response, Map<String, String> params) 
 	{		
 		String[] guts = request.getRequestURI().split("/");
@@ -67,7 +67,8 @@ public class MasterDispatcher
 				break; 
 			case "update.do": //update employee
 				break; 
-			default: 
+			case "viewE.do": //view employee
+				break;
 		}// end switch
 		return "http://localhost:8080/ERS/HTML/404.html";
 	}//end dispatch()

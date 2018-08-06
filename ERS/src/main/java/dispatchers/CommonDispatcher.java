@@ -18,7 +18,7 @@ import utilities.GsonClass;
 public class CommonDispatcher
 {
 	/** Logging object to record log4j messages.*/
-    static Logger log = Logger.getLogger(FrontEndServlet.class);
+    static Logger log = Logger.getLogger(CommonDispatcher.class);
     /** The connection to the database. */
     static Connection conn = Database.getConnection();
     /** Reference to the EAO */
@@ -54,8 +54,7 @@ public class CommonDispatcher
 	
 	public static void updateEmployeeInformation() {
 		Employee emp = new Employee();
-		//TODO get form data
-		// TODO pass form data into Employee
+		//TODO get form data into emp
 		EAO.updateEmployee(emp);
 	}//end updateEmployeeInformation()
 }//end class CommonDispatcher

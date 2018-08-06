@@ -142,7 +142,7 @@ function sendPostData(url,home,data) {
         }
     ).then(function(response) {
         if (response.ok) { window.location.assign(home); }
-        window.location.assign(ERRORPAGE);//error occurred
+        else { window.location.assign(ERRORPAGE); } //error occurred
     });
 }//end sendPostData
 
