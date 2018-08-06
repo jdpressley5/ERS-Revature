@@ -1,9 +1,7 @@
 package dao_objects;
 import dao_interfaces.ReimbursementInterface;
 import model.Reimbursement;
-import servlet.FrontEndServlet;
 import utilities.Database;
-
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -24,7 +22,7 @@ public class ReimbursementAccessObject implements ReimbursementInterface
     /** Logging object to record log4j messages.*/
     static Logger log = Logger.getLogger(ReimbursementAccessObject.class);
     /** The connection to the database. */
-    Connection conn = Database.getConnection();
+    static Connection conn = Database.getConnection();
     
     //------------------------------------------------------------------------------
     // Singleton
@@ -33,7 +31,6 @@ public class ReimbursementAccessObject implements ReimbursementInterface
     private static ReimbursementAccessObject RAO;
     /** No args constructor hidden for singleton access */
     private ReimbursementAccessObject() {}
-
     /** Gets instance of the class */
     public static ReimbursementAccessObject getInstance(){
         if(RAO == null) RAO = new ReimbursementAccessObject();
@@ -199,7 +196,7 @@ public class ReimbursementAccessObject implements ReimbursementInterface
                                     rs.getString(7), //response message
                                     rs.getString(8), //status
                                     rs.getInt(9)) //amount
-                    );
+                    			);
                 }while(rs.next());
                 return listReimb;
             }//end else

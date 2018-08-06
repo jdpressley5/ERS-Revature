@@ -1,9 +1,7 @@
 package dao_objects;
 import dao_interfaces.EmployeeInterface;
 import model.Employee;
-import servlet.FrontEndServlet;
 import utilities.Database;
-
 import org.apache.log4j.Logger;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
@@ -21,19 +19,17 @@ import java.util.ArrayList;
 public class EmployeeAccessObject implements EmployeeInterface
 {
     /** The connection to the database. */
-    Connection conn = Database.getConnection();
+    static Connection conn = Database.getConnection();
     /** Logging object to record log4j messages.*/
-    Logger log = Logger.getLogger(EmployeeAccessObject.class);
+    static Logger log = Logger.getLogger(EmployeeAccessObject.class);
 
     //------------------------------------------------------------------------------
     // Singleton
     //------------------------------------------------------------------------------
     /** singleton instance of the class */
     private static EmployeeAccessObject EAO;
-
     /** No args constructor hidden for singleton use. */
     private EmployeeAccessObject() {}
-
     /** Gets instance of the class */
     public static EmployeeAccessObject getInstance(){
         if(EAO == null) EAO = new EmployeeAccessObject();

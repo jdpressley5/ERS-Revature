@@ -1,15 +1,12 @@
 package dispatchers;
-import model.Employee;
 import java.sql.Connection;
 import org.apache.log4j.Logger;
 import dao_objects.EmployeeAccessObject;
 import dao_objects.ReimbursementAccessObject;
 import dao_objects.SignInAccessObject;
-import servlet.FrontEndServlet;
 import utilities.Database;
 import utilities.GsonClass;
 import model.Reimbursement;
-import java.util.ArrayList;
 import java.util.Map;
 
 /** ManagerDispatcher
@@ -17,7 +14,7 @@ import java.util.Map;
  *
  * --Revature Project 1 --
  * @author Joshua Pressley
- * @version 1.0 7/30/2018 */
+ * @version 1.0 8/6/2018 */
 public class ManagerDispatcher 
 {
 	/** Logging object to record log4j messages.*/

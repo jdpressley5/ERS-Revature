@@ -14,27 +14,25 @@ import utilities.Database;
  *
  * --Revature Project 1 --
  * @author Joshua Pressley
- * @version 1.0 7/30/2018 */
+ * @version 1.0 8/6/2018 */
 public class MasterDispatcher
 {	
 	/** Logging object to record log4j messages.*/
-    Logger log = Logger.getLogger(MasterDispatcher.class);
+    static Logger log = Logger.getLogger(MasterDispatcher.class);
     /** The connection to the database. */
-    Connection conn = Database.getConnection();
+    static Connection conn = Database.getConnection();
     /** Reference to the EAO */
-    EmployeeAccessObject EAO = EmployeeAccessObject.getInstance();
+    static EmployeeAccessObject EAO = EmployeeAccessObject.getInstance();
     /** Reference to the RAO */
-    ReimbursementAccessObject RAO = ReimbursementAccessObject.getInstance();
+    static ReimbursementAccessObject RAO = ReimbursementAccessObject.getInstance();
     /** Reference to Sign in object */
-    SignInAccessObject SAO = new SignInAccessObject();
+    static SignInAccessObject SAO = new SignInAccessObject();
 
-    /**
-     * 
-     * @param request
-     * @param response
-     * @param params
-     * @return
-     */
+    /** Dispatches work to the service classes.
+     * @param request request object
+     * @param response response object
+     * @param params params from the web page
+     * @return String stuff to send back to the client */
 	public static String dispatch(HttpServletRequest request, HttpServletResponse response, Map<String, String> params) 
 	{		
 		String[] guts = request.getRequestURI().split("/");
@@ -53,21 +51,28 @@ public class MasterDispatcher
 			case "create.do":// create employee
 				res = ManagerDispatcher.createEmp(params);
 				if (res)
-					return "http://localhost:8080/ERS/HTML/.html";
+					return "";//TODO fix this
 				break; 
 			case "pending.do":// view reimbursement pending
+				//TODO
 				break; 
 			case "resolved.do":// view reimbursement resolved
+				//TODO
 				break; 
 			case "profiles.do":// view employees
+				//TODO
 				break; 
 			case "logout.do": // logout
+				//TODO
 				break; 
 			case "subReq.do": //submit request
+				//TODO
 				break; 
 			case "update.do": //update employee
+				//TODO
 				break; 
 			case "viewE.do": //view employee
+				//TODO
 				break;
 		}// end switch
 		return "http://localhost:8080/ERS/HTML/404.html";
