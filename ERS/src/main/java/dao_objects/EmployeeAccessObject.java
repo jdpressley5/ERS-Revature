@@ -101,7 +101,7 @@ public class EmployeeAccessObject implements EmployeeInterface
     /** Update employee in the Database
      * @param emp Employee to update */
     @Override
-    public void updateEmployee(Employee emp) {
+    public boolean updateEmployee(Employee emp) {
         try {
             if (conn != null){
                 String sql = "{call UPDATE_EMPLOYEE(?,?,?,?,?,?,?,?)}";
@@ -115,15 +115,17 @@ public class EmployeeAccessObject implements EmployeeInterface
                 cs.setString(7,emp.getEmail());
                 cs.setString(8,emp.getStatus());
                 cs.executeUpdate();
+                return true;
             }//end if
         }//end try
         catch (SQLException sql) { log.error("SQLException occurred in updating employee"); }
+        return false;
     }//end updateEmployee()
 
     /** Create Employee in the Database
      * @param emp Employee To Add */
     @Override
-    public void createEmployee(Employee emp) {
+    public boolean createEmployee(Employee emp) {
         try {
             if (conn != null){
                 String sql = "{call INSERT_EMPLOYEE(?,?,?,?,?,?)}";
@@ -133,10 +135,12 @@ public class EmployeeAccessObject implements EmployeeInterface
                 cs.setString(3,emp.getUsername());
                 cs.setString(4,emp.getPassword());
                 cs.setString(5,emp.getAddress());
-                cs.setString(6,emp.getEmail());
+                cs.setString(6," ");
                 cs.executeUpdate();
+                return true;
             }//end if
         }//end try
-        catch (SQLException sql) { log.error("SQLException occurred creating Employee"); }
+        catch (SQLException sql) { log.error("SQLException occurred creating Employee"); sql.printStackTrace(); }
+        return false;
     }//end createEmployee()
 }//end class EmployeeAccessObject

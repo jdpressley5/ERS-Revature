@@ -10,6 +10,7 @@ import dispatchers.MasterDispatcher;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.Map;
 
 /** FrontEndServlet
@@ -30,13 +31,9 @@ public class FrontEndServlet extends HttpServlet
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException 
-	{ 		
-		BufferedReader br = request.getReader();
-		Type type = new TypeToken<Map<String,String>>(){}.getType();
-		params = new Gson().fromJson(br.readLine(), type);	
-
+	{ 	
 		response.setContentType("text/html");
-		response.getWriter().append(MasterDispatcher.dispatch(request, response, params)); 
+		response.getWriter().append(MasterDispatcher.dispatch(request, response, new HashMap<>() )); 
 	}//end doGet()
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

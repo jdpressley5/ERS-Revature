@@ -19,9 +19,9 @@ import org.apache.log4j.Logger;
 public class SignInAccessObject implements LoginInterface
 {
     /** Logging object to record log4j messages.*/
-    Logger log = Logger.getLogger(SignInAccessObject.class);
+    static Logger log = Logger.getLogger(SignInAccessObject.class);
     /** The connection to the database. */
-    Connection conn = Database.getConnection();
+    static Connection conn = Database.getConnection();
 
     /** LoginInterface
      * @param username username
@@ -52,7 +52,7 @@ public class SignInAccessObject implements LoginInterface
             }//end if
         }//end try
         catch (SQLException e)
-        { log.error("SQL Exception occurred trying to sign in user. UserID: " + username); }
+        { log.error("SQL Exception occurred trying to sign in user. UserID: " + username); e.printStackTrace();}
         return false;
     }//end login()
 }//end class SignInAccessObject

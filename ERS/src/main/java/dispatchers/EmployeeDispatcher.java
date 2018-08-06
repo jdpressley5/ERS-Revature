@@ -1,11 +1,10 @@
 package dispatchers;
-import java.sql.Connection;
+import java.util.Map;
 import org.apache.log4j.Logger;
 import dao_objects.EmployeeAccessObject;
 import dao_objects.ReimbursementAccessObject;
 import dao_objects.SignInAccessObject;
 import model.Reimbursement;
-import utilities.Database;
 import utilities.GsonClass;
 
 /** EmployeeDispatcher
@@ -18,15 +17,10 @@ public class EmployeeDispatcher
 {
 	/** Logging object to record log4j messages.*/
     static Logger log = Logger.getLogger(EmployeeDispatcher.class);
-    /** The connection to the database. */
-    static Connection conn = Database.getConnection();
     /** Reference to the EAO */
     static EmployeeAccessObject EAO = EmployeeAccessObject.getInstance();
     /** Reference to the RAO */
     static ReimbursementAccessObject RAO = ReimbursementAccessObject.getInstance();
-    /** Reference to Sign in object */
-    static SignInAccessObject SAO = new SignInAccessObject();
-
     //------------------------------------------------------------------------------
   	// Singleton
   	//------------------------------------------------------------------------------
@@ -34,7 +28,6 @@ public class EmployeeDispatcher
 	private static EmployeeDispatcher ED;
 	/** No Args constructor hidden for singleton use. */
 	private EmployeeDispatcher() {}
-
 	/** Get instance of this class */
 	static EmployeeDispatcher getInstance() {
 		if (ED == null) ED = new EmployeeDispatcher();
@@ -45,40 +38,29 @@ public class EmployeeDispatcher
 	//  Methods
 	//------------------------------------------------------------------------------
 
-	/**
-	 * 
-	 */
-	public static void createReimbursementRequest(){
+	/** create a reimbursement
+ 	* @param params parameters from client */
+	public static void createReimbursementRequest(Map<String,String> params){
 		Reimbursement re = new Reimbursement();
 		//TOD get data into reimbursement
 		RAO.createReimbursement(re);
 	}//end createReimbursementRequest()
 	
-	/**
-	 * 
-	 * @return
-	 */
-	public static String viewEmployeePending() {
-		int eid = 0;//TODO replace
-		return GsonClass.gsonReimbursements(RAO.getFilterPendingReimbursements(eid));
-	}//end employeePending()
+	/** Gets pending reimbursements for employee
+	 * @return String of pending reimbursements for employee */
+	public static String viewEmployeePending(int eid) 
+	{ return GsonClass.gsonReimbursements(RAO.getFilterPendingReimbursements(eid)); }
 	
-	/**
-	 * 
-	 * @return
-	 */
-	public static String viewEmployeeResolved() {
-		int eid = 0;//TODO replace
-		return GsonClass.gsonReimbursements(RAO.getFilterResolvedReimbursements(eid));
-	}//end viewEmployeeResolved()
+	/** Gets resolved reimbursements for employee
+	 * @return String of resolved reimbursements for employee */
+	public static String viewEmployeeResolved(int eid) 
+	{ return GsonClass.gsonReimbursements(RAO.getFilterResolvedReimbursements(eid)); }
 	
-	/**
-	 * 
-	 * @param username
-	 * @param password
-	 * @return
-	 */
+	/** Signs in employee
+	 * @param username username
+	 * @param password password
+	 * @return success/fail */
 	public static boolean signIn(String username, String password)
-	{ return SAO.login(username, password, "EMP"); }
+	{ return new SignInAccessObject().login(username, password, "EMP"); }
 
 }//end class EmployeeDispatcher

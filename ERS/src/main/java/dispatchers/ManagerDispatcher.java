@@ -1,11 +1,10 @@
 package dispatchers;
-import java.sql.Connection;
 import org.apache.log4j.Logger;
 import dao_objects.EmployeeAccessObject;
 import dao_objects.ReimbursementAccessObject;
 import dao_objects.SignInAccessObject;
-import utilities.Database;
 import utilities.GsonClass;
+import model.Employee;
 import model.Reimbursement;
 import java.util.Map;
 
@@ -19,14 +18,10 @@ public class ManagerDispatcher
 {
 	/** Logging object to record log4j messages.*/
     static Logger log = Logger.getLogger(ManagerDispatcher.class);
-    /** The connection to the database. */
-    static Connection conn = Database.getConnection();
     /** Reference to the EAO */
     static EmployeeAccessObject EAO = EmployeeAccessObject.getInstance();
     /** Reference to the RAO */
     static ReimbursementAccessObject RAO = ReimbursementAccessObject.getInstance();
-    /** Reference to Sign in object */
-    static SignInAccessObject SAO = new SignInAccessObject();
     
 	//------------------------------------------------------------------------------
 	// Singleton
@@ -35,7 +30,6 @@ public class ManagerDispatcher
 	private static ManagerDispatcher MD;
 	/** No Args constructor hidden for singleton use. */
 	private ManagerDispatcher() {}
-
 	/** Get instance of this class */
 	static ManagerDispatcher getInstance() {
 		if (MD == null) MD = new ManagerDispatcher();
@@ -47,57 +41,52 @@ public class ManagerDispatcher
 	//------------------------------------------------------------------------------
 
 	/** Approves a request
-	 * @param message message to reply with
-	 * @param re Reimbursement object*/
-	public static void approveResponse(String message, Reimbursement re)
-	{ RAO.approveDenyRequest(true, message, re); }
+	 * @param params parameters from client */
+	public static void respond(Map<String,String> params) { 
+		Reimbursement re = new Reimbursement();
+		re.setR_id(Integer.parseInt(params.get("rid")));
+		String message = params.get("message");
+		boolean apr = Boolean.parseBoolean(params.get("apr"));
+		RAO.approveDenyRequest(apr, message, re); 
+	}//end respond()
 
 	/** Denies a request
 	 * @param message message to reply with
 	 * @param re Reimbursement object */
-	public static void denyResponse(String message, Reimbursement re)
-	{ RAO.approveDenyRequest(false, message, re); }
+	public static void denyResponse(String message, Reimbursement re, boolean apr)
+	{ RAO.approveDenyRequest(apr, message, re); }
 	
-	/**
-	 * 
-	 * @return
-	 */
-	public static String getAllPending() {
-		return GsonClass.gsonReimbursements(RAO.getPendingReimbursements());
-	}//end getAllPending()
+	/** gets all pending requests
+	 * @return string of pending requests */
+	public static String getAllPending() 
+	{ return GsonClass.gsonReimbursements(RAO.getPendingReimbursements()); }
 	
-	/**
-	 * 
-	 * @return
-	 */
-	public static String getAllResolved(){
-		return GsonClass.gsonReimbursements(RAO.getResolvedReimbursements());
-	}//end getAllResolved()
+	/** gets all resolved requests
+	 * @return string of resolved requests */
+	public static String getAllResolved()
+	{ return GsonClass.gsonReimbursements(RAO.getResolvedReimbursements());}
 	
-	/**
-	 * 
-	 * @return
-	 */
-	public static String getAllEmployees(){
-		return GsonClass.gsonEmployees(EAO.getAllEmployees());
-		//TODO finish
-	}//end getAllEmployees()
+	/** Gets all employees
+	 * @return string of all employees */
+	public static String getAllEmployees() 
+	{ return GsonClass.gsonEmployees(EAO.getAllEmployees()); }
 	
-	/**
-	 * 
-	 * @param username
-	 * @param password
-	 * @return
-	 */
+	/** Signs in manger
+	 * @param username username
+	 * @param password password
+	 * @return success or failure for signin */ 
 	public static boolean signIn(String username, String password)
-	{ return SAO.login(username, password, "MGR"); }
+	{ return new SignInAccessObject().login(username, password, "MGR"); }
 
-	/**
-	 * 
-	 * @param params
-	 * @return
-	 */
+	/** creates an employee and adds it to the database.
+	 * @param params params to create employee
+	 * @return boolean successful? */
 	public static boolean createEmp(Map<String,String> params)
-	{	
-		return false; }
+	{	Employee emp = new Employee();
+		emp.setFirstName(params.get("fname"));
+		emp.setLastName(params.get("lname"));
+		emp.setPassword(params.get("password"));
+		emp.setUsername(params.get("username"));		
+		return EAO.createEmployee(emp);
+	}//end createEmp()
 }//end class ManagerDispatcher

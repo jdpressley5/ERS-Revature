@@ -48,7 +48,7 @@ function logout() {
 
 /** EHome.html & MHome.html 
  * View resolved Requests */
-function resolved() {
+function requests() {
     let home = "http://localhost:8080/ERS/HTML/Requests.html";
     window.location.assign(home);
 }//end resolved()
@@ -105,8 +105,43 @@ function toUpdate() {
 /** Gets information for a single employee */
 function getEmployee()
 {
-
+    let url = "viewE.do";
 }
+
+function pending()
+{
+    fetch(
+        'pending.do',
+        {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'}
+        }
+    ).then(function(response) {
+        if (response.ok) { 
+            let contents = response.text;
+            // let contents = JSON.parse(response.text);
+            document.getElementById("requestsTable").innerHTML = contents;
+        }
+        else { window.location.assign(ERRORPAGE); }//error occurred
+    });
+}//end pending()
+
+function resolved() 
+{
+    fetch(
+        'resolved.do',
+        {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'}
+        }
+    ).then(function(response) {
+        if (response.ok) { 
+            let contents = JSON.parse(response.text);
+            document.getElementById("contents").text = contents;
+        }
+        else { window.location.assign(ERRORPAGE); }//error occurred
+    });
+}//end resolved()
 
 /** logout.html 
  * Change pages back to the login page */
@@ -117,7 +152,7 @@ function returnToLogin() {
 
 /** registerEmployee.html
  * Creates an employee */
-function createEmp() {
+function createE() {
     let data = {
         username: document.getElementById("Username").value,
         password: document.getElementById("Password").value,
@@ -126,8 +161,31 @@ function createEmp() {
     };
     let url = "create.do";
     let home = SUCCESSPAGE_M;
+    console.log("herer");
     sendPostData(url,home,data);
 }//end createEmp()
+
+/** Approve a request */
+function approve(RID) {
+    let data = { 
+        message: document.getElementById("username").value,
+        rid: RID
+    };
+    let url = 'aprv.do';
+    let home = window.location;
+    sendPostData(url,home,data);
+}//end Approve()
+
+/**Deny a request */
+function deny(RID) {
+    let data = { 
+        message: document.getElementById("username").value,
+        rid: RID
+    };
+    let url = 'deny.do';
+    let home = window.location;
+    sendPostData(url,home,data);
+}//end deny()
 
 //---------------------------------------
 
@@ -156,6 +214,6 @@ function changePage(url,home) {
         }
     ).then(function(response) {
         if (response.ok) { window.location.assign(home); }
-        window.location.assign(ERRORPAGE);//error occurred
+        else { window.location.assign(ERRORPAGE); }//error occurred
     });
 }//end changePage()

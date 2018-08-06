@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 import org.apache.log4j.Logger;
 
 /** ReimbursementAccessObject
@@ -49,8 +48,8 @@ public class ReimbursementAccessObject implements ReimbursementInterface
             if (conn != null){
                 String sql = "{call INSERT_REIMBURSEMENT_EMPLOYEE(?,?,?)}";
                 CallableStatement cs = conn.prepareCall(sql);
-                cs.setString(1,re.getMessage());
-                cs.setInt(2,re.getEmployeeID());
+                cs.setString(2,re.getMessage());
+                cs.setInt(1,re.getEmployeeID());
                 cs.setInt(3,re.getAmount());
                 cs.executeUpdate();
             }//end if
@@ -75,7 +74,7 @@ public class ReimbursementAccessObject implements ReimbursementInterface
                             rs.getInt(3),//employee id
                             rs.getInt(4), //manager id
                             rs.getString(5),//request message
-                            rs.getDate(6), // response date
+                            rs.getString(6), // response date
                             rs.getString(7), //response message
                             rs.getString(8), //status
                             rs.getInt(9)); //amount
@@ -186,17 +185,19 @@ public class ReimbursementAccessObject implements ReimbursementInterface
             else {
                 ArrayList<Reimbursement> listReimb = new ArrayList<>();
                 do {
-                    listReimb.add(new Reimbursement(
-                                    rs.getInt(1), //rID
-                                    rs.getDate(2),//request date
-                                    rs.getInt(3),//employee id
-                                    rs.getInt(4), //manager id
-                                    rs.getString(5),//request message
-                                    rs.getDate(6), // response date
-                                    rs.getString(7), //response message
-                                    rs.getString(8), //status
-                                    rs.getInt(9)) //amount
-                    			);
+                	Reimbursement re = new Reimbursement(
+                            rs.getInt(1), //rID
+                            rs.getDate(2),//request date
+                            rs.getInt(3),//employee id
+                            rs.getInt(4), //manager id
+                            rs.getString(5),//request message
+                            rs.getString(6), // response date
+                            rs.getString(7), //response message
+                            rs.getString(8), //status
+                            rs.getInt(9)) //amount
+                	;
+                	System.out.println(re.toString());
+                    listReimb.add(re);
                 }while(rs.next());
                 return listReimb;
             }//end else

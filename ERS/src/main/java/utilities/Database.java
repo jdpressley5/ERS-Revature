@@ -5,19 +5,17 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 import org.apache.log4j.Logger;
-import servlet.FrontEndServlet;
 
 /** Database
  * Performs the connection to the database. This is a singleton instance
  *
  * --Revature Project 1 --
  * @author Joshua Pressley
- * @version 1.0 7/27/2018 */
+ * @version 1.0 8/6/2018 */
 public class Database
 {
 	/** Logging object to record log4j messages.*/
     static Logger log = Logger.getLogger(Database.class);
-    
     /** static reference to the connection. */
     private static Connection conn = null;
 
@@ -45,7 +43,7 @@ public class Database
         }//end else
     }//end getConnection()
 
-    /** Closes the connection to the Db.*/
+    /** Closes the connection to the Database.*/
     public static void closeConn() {
         try { conn.close(); }
         catch (SQLException e) { log.error("Error occurred closing connection."); }

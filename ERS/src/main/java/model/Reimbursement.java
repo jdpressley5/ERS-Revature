@@ -20,7 +20,7 @@ public class Reimbursement
     /** The message from the employee */
     private String message;
     /** The response Date */
-    private Date responseDate;
+    private String responseDate;
     /** The response message */
     private String responseMessage;
     /** The amount to reimburse */
@@ -42,7 +42,7 @@ public class Reimbursement
 	 * @param amount amount
 	 * @param status the status of the request
 	 * @param responseMessage response message from manager */
-	public Reimbursement(int r_id, Date requestDate, int employeeID, int managerID, String message, Date responseDate,
+	public Reimbursement(int r_id, Date requestDate, int employeeID, int managerID, String message, String responseDate,
 			String responseMessage, String status, int amount) {
 		super();
 		this.r_id = r_id;
@@ -93,7 +93,7 @@ public class Reimbursement
 
 	/** Gets response date
 	 * @return the responseDate */
-	public Date getResponseDate() { return responseDate; }
+	public String getResponseDate() { return responseDate; }
 
 	/** Gets the response message
 	 * @return the responseMessage */
@@ -129,7 +129,7 @@ public class Reimbursement
     
 	/** Sets response date
 	 * @param responseDate the responseDate to set */
-	public void setResponseDate(Date responseDate) { this.responseDate = responseDate; }
+	public void setResponseDate(String responseDate) { this.responseDate = responseDate; }
     
 	/** Sets the response message
 	 * @param responseMessage the responseMessage to set  */

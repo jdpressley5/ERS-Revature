@@ -1,12 +1,8 @@
 package dispatchers;
-import java.sql.Connection;
+import java.util.Map;
 import org.apache.log4j.Logger;
 import dao_objects.EmployeeAccessObject;
-import dao_objects.ReimbursementAccessObject;
-import dao_objects.SignInAccessObject;
 import model.Employee;
-import servlet.FrontEndServlet;
-import utilities.Database;
 import utilities.GsonClass;
 
 /** CommonDispatcher
@@ -14,19 +10,13 @@ import utilities.GsonClass;
  *
  * --Revature Project 1 --
  * @author Joshua Pressley
- * @version 1.0 7/30/2018 */
+ * @version 1.0 8/6/2018 */
 public class CommonDispatcher
 {
 	/** Logging object to record log4j messages.*/
     static Logger log = Logger.getLogger(CommonDispatcher.class);
-    /** The connection to the database. */
-    static Connection conn = Database.getConnection();
     /** Reference to the EAO */
     static EmployeeAccessObject EAO = EmployeeAccessObject.getInstance();
-    /** Reference to the RAO */
-    static ReimbursementAccessObject RAO = ReimbursementAccessObject.getInstance();
-    /** Reference to Sign in object */
-	static SignInAccessObject SAO = new SignInAccessObject();
 	
 	//------------------------------------------------------------------------------
 	// Singleton
@@ -35,7 +25,6 @@ public class CommonDispatcher
 	private static CommonDispatcher CD;
 	/** No Args constructor hidden for singleton use. */
 	private CommonDispatcher() {}
-
 	/** Get instance of this class */
 	static CommonDispatcher getInstance() {
 		if (CD == null) CD = new CommonDispatcher();
@@ -52,9 +41,14 @@ public class CommonDispatcher
 	public static String viewEmployeeProfile(int ID) 
 	{ return GsonClass.gsonIndividual(EAO.getIndividual(ID)); }
 	
-	public static void updateEmployeeInformation() {
+	public static void updateEmployeeInformation(Map<String,String> params) {
 		Employee emp = new Employee();
-		//TODO get form data into emp
+		emp.setFirstName(params.get("fname"));
+		emp.setLastName(params.get("lname"));
+		emp.setAddress(params.get("address"));
+		emp.setEmail(params.get("email"));
+		emp.setPassword(params.get("password"));
+		emp.setUsername(params.get("username"));
 		EAO.updateEmployee(emp);
 	}//end updateEmployeeInformation()
 }//end class CommonDispatcher

@@ -20,7 +20,7 @@
             <button id="getResolved" type="submit" onclick="resolved()">Get Resolved Requests</button>
             <div>
                 <table class="table table-bordered table-hover table-striped">
-                    <tbody id="requestsTable">
+                    <thead>
                         <th>Request Number</th>
                         <th>Employee ID</th>
                         <th>Request Message </th>
@@ -29,8 +29,11 @@
                         <th>Manager ID</th>
                         <th>Response Date</th>
                         <th>Response Message</th>
+                    </thead>
+                    <tbody id="requestsTable">
                     </tbody>
                 </table>
+                <p id="contents"></p>
             </div>
         </section>
         <script type="text/javascript" src=../js/masterJS.js></script>

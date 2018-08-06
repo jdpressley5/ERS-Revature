@@ -14,7 +14,7 @@ public interface EmployeeInterface {
 	/** Gets all employees from the Database*/
 	ArrayList<Employee> getAllEmployees();
 	/** Update employee in the Database */
-	void updateEmployee(Employee emp);
+	boolean updateEmployee(Employee emp);
 	/** Create Employee in the Database */
-	void createEmployee(Employee emp);
+	boolean createEmployee(Employee emp);
 }//end interface EmployeeInterface
