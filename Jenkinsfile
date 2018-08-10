@@ -6,9 +6,11 @@ pipeline {
     stages {
         stage('Build') {    
             steps {
+                dir('./ERS') {
                     sh 'echo $USER'
                     sh 'mvn clean'
                     sh 'mvn install'
+                }
             }
         }
         stage('Test') {
@@ -18,7 +20,7 @@ pipeline {
         }
         stage('Deliver') {
             steps {
-                dir('./ERS1') {
+                dir('./ERS') {
                     sh 'echo $CATALINA_HOME'
                     sh 'cp target/*.war $CATALINA_HOME/webapps/'
                     sh 'cp -r target/ERS1 $CATALINA_HOME/webapps/'
