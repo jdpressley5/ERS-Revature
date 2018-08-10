@@ -7,8 +7,8 @@ pipeline {
         stage('Build') {    
             steps {
                     sh 'echo $USER'
-                    sh 'sudo mvn clean'
-                    sh 'sudo mvn install'
+                    sh 'mvn clean'
+                    sh 'mvn install'
             }
         }
         stage('Test') {
