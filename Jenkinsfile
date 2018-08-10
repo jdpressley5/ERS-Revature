@@ -7,6 +7,7 @@ pipeline {
         stage('Build') {    
             steps {
                 dir('./ERS1') {
+                    sh 'sudo su ec2-user'
                     sh 'echo $USER'
                     sh 'mvn clean'
                     sh 'mvn install'
