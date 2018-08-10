@@ -9,7 +9,7 @@ pipeline {
                 dir('./ERS') {
                     sh 'echo $USER'
                     sh 'mvn clean'
-                    sh 'mvn install'
+                    sh 'mvn install -e'
                 }
             }
         }
