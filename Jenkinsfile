@@ -7,9 +7,7 @@ pipeline {
         stage('Build') {    
             steps {
                 dir('./ERS') {
-                    sh 'echo $USER'
-                    sh 'mvn clean'
-                    sh 'mvn install -e'
+                    sh 'mvn -U -e clean install'
                 }
             }
         }
